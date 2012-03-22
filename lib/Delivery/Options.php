@@ -16,11 +16,10 @@ class Options
    * @var array All the different strategy classes
    */
   protected $_strategies = array(
-    '\\Delivery\\Strategy\\RoyalMail\\FirstClass',
-    '\\Delivery\\Strategy\\RoyalMail\\Recorded',
-    '\\Delivery\\Strategy\\ParcelForce\\Priority',
-    '\\Delivery\\Strategy\\Ups\\International',
-    '\\Delivery\\Strategy\\Dhl\\International'
+    '\\Mock\\Delivery\\Strategy\\RoyalMail\\FirstClass',
+    '\\Mock\\Delivery\\Strategy\\RoyalMail\\Recorded',
+    '\\Mock\\Delivery\\Strategy\\Ups\\International',
+    '\\Mock\\Delivery\\Strategy\\Ups\\NextDay',
   );
   
   /**
@@ -57,7 +56,10 @@ class Options
 
       if ( !( $strategy instanceof \Delivery\Strategy ) )
       {
-        throw new \Exception( "$strategyName is not a \Delivery\Strategy" );
+        throw new \Delivery\Exception( 
+			"$strategyName is not a \Delivery\Strategy",
+			\Delivery\Exception::INVALID_STRATEGY
+		);
       }
 
       $estimates[] = $strategy->getEstimate( $cargo, $destination );
