@@ -37,7 +37,7 @@ class FirstClass implements \Delivery\Strategy
 
   public function confirm( Estimate $estimate )
   {
-    LabelPrinter::print( new \RoyalMail\ShippingLabel( array(
+    LabelPrinter::printLabel( new \RoyalMail\ShippingLabel( array(
       'class' => 'first',
       'address' => $estimate->getDestination()
     ) ) );
