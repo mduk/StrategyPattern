@@ -22,6 +22,22 @@ class Options
     '\\Delivery\\Strategy\\Ups\\International',
     '\\Delivery\\Strategy\\Dhl\\International'
   );
+  
+  /**
+   * __construct
+   * 
+   * Creates a new Options instance, optionally using the delivery
+   * strategy class names provided.
+   * 
+   * @param array $strategies Strategy class names
+   */
+  public function __construct( $strategies=null )
+  {
+	  if ( $strategies )
+	  {
+		  $this->_strategies = $strategies;
+	  }
+  }
 
   /**
    * getEstimates
@@ -37,7 +53,7 @@ class Options
     $estimates = array();
     foreach ( $this->_strategies as $strategyName )
     {
-      $stragegy = new $strategyName;
+      $strategy = new $strategyName;
 
       if ( !( $strategy instanceof \Delivery\Strategy ) )
       {
@@ -62,4 +78,3 @@ class Options
     return $estimate->getStrategy()->confirm( $estimate );
   }
 }
-
